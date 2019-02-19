@@ -11,7 +11,7 @@ public class App {
 
 	public static void main(String[] args) {
 
-		Connection connection = null;
+		FabricaDeConexao fabricaDeConexao = new FabricaDeConexao();
 		
 		try {
 
@@ -54,23 +54,26 @@ public class App {
 			// System.out.println("Problemas ao executar operação! ");
 			// }
 
-			ResultSet resultSet = connection.createStatement()
-					.executeQuery("SELECT P.ID, P.PRIMEIRO_NOME, P.SEGUNDO_NOME, P.ENDERECO, P.CIDADE FROM PESSOAS P");
-
-			while (resultSet.next()) {
+			ResultSet resultSet = fabricaDeConexao.getPreparedStatement(
+					"SELECT P.ID, P.PRIMEIRO_NOME, "
+					+ "P.SEGUNDO_NOME, P.ENDERECO, P.CIDADE "
+					+ "FROM PESSOAS P").executeQuery();
+			
+			while(resultSet.next()) 
+			{
 				String primeiroNome = resultSet.getString("PRIMEIRO_NOME");
 				String segundoNome = resultSet.getString("SEGUNDO_NOME");
 				String endereco = resultSet.getString("ENDERECO");
 				String cidade = resultSet.getString("CIDADE");
-				Integer id = resultSet.getInt("ID");
-
+				Long id = resultSet.getLong("ID");
+				
+				System.out.println(id);
 				System.out.println(primeiroNome);
 				System.out.println(segundoNome);
 				System.out.println(endereco);
 				System.out.println(cidade);
-				System.out.println(id);
-				System.out.println("#####################");
-
+				System.out.println("####################################");
+			
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -78,16 +81,10 @@ public class App {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			if (connection != null) {
-				try {
-					connection.close();
-					System.out.println("Fechando a conexão");
-				} catch (Exception e) {
-
-				}
-
+		} 	
+		 finally 
+	        {
+	        	fabricaDeConexao.fecharConexao();
 			}
-		}
 	}
 }
