@@ -1,59 +1,39 @@
 package com.target.treinamento.banco.banco;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class App {
-
-	public static void main(String[] args) {
-
-		FabricaDeConexao fabricaDeConexao = new FabricaDeConexao();
-		
-		try {
-
-			Class.forName("org.postgresql.Driver");
-
-			// Criação da conexão de banco de dados
-			Connection connection = DriverManager.getConnection(
-					"jdbc:postgresql://ec2-23-21-128-35.compute-1.amazonaws.com:5432/d5k5g3oob6tn20", "kxwedtxgcfjgvt",
-					"218b0dd9927d70d198d3f587b28ad32c6dd9cd00ac1c5d33803b8bc982f819e2");
-
-			System.out.println("Java Connection JDBC" + connection.toString());
-
-			String sql = "insert into pessoas(PRIMEIRO_NOME, SEGUNDO_NOME, ENDERECO, CIDADE) VALUES (?,?,?,?)";
-			PreparedStatement statement = connection.prepareStatement(sql);
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	FabricaDeConexao fabricaDeConexao = new FabricaDeConexao();
+    	
+        try 
+        {
+        	String sql = "insert into pessoas(PRIMEIRO_NOME,SEGUNDO_NOME, ENDERECO, CIDADE) "
+					+ "VALUES (?, ?, ?, ?)";
+        					// 1, 2, 3, 4
+			PreparedStatement statement = fabricaDeConexao.getPreparedStatement(sql);
 			statement.setString(1, "Pedrinho");
 			statement.setString(2, "Alfredo");
-			statement.setString(3, "Rua Bento Rosa");
-			statement.setString(4, "Lageado");
-
+			statement.setString(3, "Rua Bento rosa");
+			statement.setString(4, "Lajeado");
 			int retorno = statement.executeUpdate();
-
-			if (retorno == 1) {
+			
+			if(retorno == 1) {
 				System.out.println("Sucesso!");
 			} else {
-				System.out.println("Erro ao gravar dados");
-
+				System.out.println("Erro ao gravar dados!");
 			}
-
-			statement.close();
-
-			// Obtenho o startement para manipular a DML
-			// Statement statement = connection.prepareStatement("");
-
-			// boolean deuCerto = statement.execute("");
-			//
-			// if (deuCerto) {
-			// System.out.println("Funcionou");
-			// } else {
-			//
-			// System.out.println("Problemas ao executar operação! ");
-			// }
-
+			
 			ResultSet resultSet = fabricaDeConexao.getPreparedStatement(
 					"SELECT P.ID, P.PRIMEIRO_NOME, "
 					+ "P.SEGUNDO_NOME, P.ENDERECO, P.CIDADE "
@@ -73,18 +53,18 @@ public class App {
 				System.out.println(endereco);
 				System.out.println(cidade);
 				System.out.println("####################################");
-			
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 	
-		 finally 
-	        {
-	        	fabricaDeConexao.fecharConexao();
-			}
-	}
+		} 
+        
+        //Bloco que sempre será executado, independente de exception ou não.
+        finally 
+        {
+        	fabricaDeConexao.fecharConexao();
+		}
+        		
+    }
 }
