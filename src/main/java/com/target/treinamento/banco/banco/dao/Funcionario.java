@@ -4,6 +4,12 @@ import java.util.Calendar;
 
 public class Funcionario {
 
+	@Override
+	public String toString() {
+		return "Funcionario [id=" + id + ", nome=" + nome + ", cargo=" + cargo + ", idade=" + idade + ", salario="
+				+ salario + ", dataInclusao=" + dataInclusao + "]";
+	}
+
 	private Long id;
 	private String nome;
 	private Integer cargo;
