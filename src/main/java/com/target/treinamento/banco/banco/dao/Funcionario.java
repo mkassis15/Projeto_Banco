@@ -2,27 +2,48 @@ package com.target.treinamento.banco.banco.dao;
 
 import java.util.Calendar;
 
-public class Funcionario {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+@Entity //eu sou uma persistence class
+@Table(name = "FUNCIONARIOS") // quero que crie uma tabela ou mapeie essa tabela com este nome.
+
+public class Funcionario {
+	
+	@Id
+	@Column(name="ID")
+	@SequenceGenerator(name = "geradorDeId", sequenceName= "funcionarios_id_seq", allocationSize=5)
+	@GeneratedValue(generator="geradorDeId")
+	
+	private Long id;
+	
+	@Column(name="NOME")
+	private String nome;
+	
+	@Column(name="CARGO")
+	private Integer cargo;
+	
+	@Column(name="IDADE")
+	private Integer idade;
+	
+	@Column(name="SALARIO")
+	private Double salario;
+	
+	@Column(name="DATA_INCLUSAO")
+	@Temporal(TemporalType.DATE)
+	private Calendar dataInclusao;
+	
+	
 	@Override
 	public String toString() {
 		return "Funcionario [id=" + id + ", nome=" + nome + ", cargo=" + cargo + ", idade=" + idade + ", salario="
 				+ salario + ", dataInclusao=" + dataInclusao + "]";
-	}
-
-	private Long id;
-	private String nome;
-	private Integer cargo;
-	private Integer idade;
-	private Double salario;
-	private Calendar dataInclusao;
-
-	public Calendar getDataInclusao() {
-		return dataInclusao;
-	}
-
-	public void setDataInclusao(Calendar dataInclusao) {
-		this.dataInclusao = dataInclusao;
 	}
 
 	public Funcionario(Long id, String nome, Integer cargo, Integer idade, Double salario) {
@@ -32,6 +53,14 @@ public class Funcionario {
 		this.cargo = cargo;
 		this.idade = idade;
 		this.salario = salario;
+	}
+	
+	public Calendar getDataInclusao() {
+		return dataInclusao;
+	}
+
+	public void setDataInclusao(Calendar dataInclusao) {
+		this.dataInclusao = dataInclusao;
 	}
 
 	public Funcionario() {
