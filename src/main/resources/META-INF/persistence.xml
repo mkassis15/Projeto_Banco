@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+	<persistence-unit name="testeBanco" transaction-type="RESOURCE_LOCAL">
+
+		<class>com.target.treinamento.projeto_banco.Funcionario</class>
+
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="javax.persistence.jdbc.user" value="kxwedtxgcfjgvt" />
+			<property name="javax.persistence.jdbc.password" value="218b0dd9927d70d198d3f587b28ad32c6dd9cd00ac1c5d33803b8bc982f819e2" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://ec2-23-21-128-35.compute-1.amazonaws.com:5432/d5k5g3oob6tn20" />
+	
+			<property name="hibernate.show_sql" value="true" />		<!-- retrorna o sql -->
+			<property name="hibernate.format_sql" value="true" />   <!-- formata o sql -->
+			<property name="hibernate.hbm2dll.auto" value="update" />    
+			<!--  update: faz o update do schema da tabela pode adicionar coluna e PERIGOSO apagar coluna -->
+			<!--  se colocar "validate"  valida o schema sem alterar-->
+			<!--  se colocar "create"  cria o schema e destroi os dados anteriores-->
+			<!--  se colocar "create-drop"  drop o schema quando a sessão termina-->
+	
+	
+		</properties>
+
+	</persistence-unit>
+</persistence>

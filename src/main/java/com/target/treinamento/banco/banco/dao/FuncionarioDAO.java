@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.target.treinamento.banco.banco.FabricaDeConexao;
 import com.target.treinamento.banco.banco.LogManager;
+import com.target.treinamento.banco.banco.dominio.Funcionario;
 
 public class FuncionarioDAO {
 

@@ -1,4 +1,4 @@
-package com.target.treinamento.banco.banco.dao;
+package com.target.treinamento.banco.banco.dominio;
 
 import java.util.Calendar;
 
@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -18,7 +20,7 @@ public class Funcionario {
 	
 	@Id
 	@Column(name="ID")
-	@SequenceGenerator(name = "geradorDeId", sequenceName= "funcionarios_id_seq", allocationSize=5)
+	@SequenceGenerator(name = "geradorDeId", sequenceName= "funcionarios_id_seq", allocationSize=1)
 	@GeneratedValue(generator="geradorDeId")
 	
 	private Long id;
@@ -39,7 +41,21 @@ public class Funcionario {
 	@Temporal(TemporalType.DATE)
 	private Calendar dataInclusao;
 	
+	@JoinColumn(name = "ID_BANCO")
+	@ManyToOne
+	private Banco banco;
 	
+//	@Column (name = "GAVIAO")
+//	private String gaviao;
+//	
+//	public String getGaviao() {
+//		return gaviao;
+//	}
+//
+//	public void setGaviao(String gaviao) {
+//		this.gaviao = gaviao;
+//	}
+
 	@Override
 	public String toString() {
 		return "Funcionario [id=" + id + ", nome=" + nome + ", cargo=" + cargo + ", idade=" + idade + ", salario="
